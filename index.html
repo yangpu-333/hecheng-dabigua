@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f7f3e8">
+  <meta name="description" content="两个同级形象，合成更大的大逼瓜。移动瞄准，松手投放，挑战你的最高分！">
+  <title>合成大逼瓜</title>
+  <link rel="icon" href="character-09.png">
+  <link rel="stylesheet" href="styles.css">
+  <script src="matter.min.js" defer></script>
+  <script src="collision-shapes.js" defer></script>
+  <script src="game-core.js" defer></script>
+  <script src="game.js" defer></script>
+</head>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <a class="brand" href="./" aria-label="合成大逼瓜首页"><span class="brand-mark">瓜</span><span>大逼瓜游乐场<small>JUST ONE MORE MERGE</small></span></a>
+      <div class="header-actions"><button class="icon-button" id="outline-button" aria-label="显示碰撞轮廓" aria-pressed="false">▱<span>轮廓关</span></button><button class="icon-button" id="sound-button" aria-label="开启音效" aria-pressed="false">♪<span>音效关</span></button><button class="icon-button" id="help-button" aria-label="游戏玩法">?<span>怎么玩</span></button></div>
+    </header>
+    <main class="layout">
+      <aside class="intro">
+        <div class="eyebrow"><span></span> 今日份快乐，正在掉落</div>
+        <h1>合成<br><span>大逼瓜<span class="title-dot">.</span></span></h1>
+        <p class="intro-copy">从一个小表情开始，<br>看看你能合出多大的瓜。</p>
+        <div class="goal-art"><span class="orbit orbit-one">✦</span><span class="orbit orbit-two">✧</span><img src="character-09.png" alt="向日葵造型人物"><div class="art-label">越合越大，快乐加倍</div></div>
+        <div class="tip-card"><span class="tip-icon">↘</span><div><strong>小秘诀</strong><p>让相同的形象靠在一起。<br>给大瓜留点空间。</p></div></div>
+        <p class="tiny-note">10 个形象 · 无限合成 · 分数挑战</p>
+      </aside>
+      <section class="play-column" aria-label="游戏区域">
+        <div class="scoreboard">
+          <div class="score-block"><span class="score-label">本局得分</span><strong id="score">0</strong><span id="score-pop" aria-hidden="true"></span></div>
+          <div class="best-block"><span class="score-label">♛ 最高纪录</span><strong id="best-score">0</strong></div>
+          <button class="restart-button" id="restart-button" aria-label="重新开始">↻</button>
+        </div>
+        <div class="game-frame">
+          <canvas id="game-canvas" width="840" height="1280" tabindex="0" aria-label="合成大逼瓜游戏：移动鼠标或拖动屏幕瞄准，点击或松手投放；方向键移动，空格投放。"></canvas>
+          <div class="loading-overlay" id="loading-overlay"><span class="loading-spinner"></span><strong>瓜瓜正在就位…</strong><span id="loading-progress">准备人物素材</span><button id="reload-button" hidden>重新加载</button></div>
+          <div class="start-overlay" id="start-overlay" hidden><div class="start-card"><span class="start-badge">准备好接住快乐了吗？</span><img src="character-02.png" alt="嘟嘴人物"><h2>小表情，大可能。</h2><p>相同形象碰在一起，就会长大。<br>别让它们堆过虚线！</p><button class="primary-button" id="start-button">开始合成 <span>↗</span></button><small>移动瞄准 · 点击 / 松手投放</small></div></div>
+          <div class="pause-overlay" id="pause-overlay" hidden><strong>休息一下，瓜不会跑。</strong><button class="primary-button" id="resume-button">继续合成 →</button></div>
+          <div class="gameover-overlay" id="gameover-overlay" hidden><div class="result-card"><span class="result-icon">☁</span><span class="eyebrow">瓜有点多，装不下啦</span><h2>这一局，够快乐！</h2><p>本局得分</p><strong id="final-score">0</strong><span id="result-record"></span><div class="result-highest" id="result-highest"></div><button class="primary-button" id="again-button">再合一局 <span>↻</span></button></div></div>
+          <div class="toast" id="toast" role="status" aria-live="polite"></div>
+        </div>
+        <div class="play-hint"><span class="hint-dot"></span><span id="play-hint">移动瞄准，点击投放。手机拖动后松手。</span><button id="pause-button" aria-label="暂停游戏" disabled>Ⅱ</button></div>
+      </section>
+      <aside class="sidebar">
+        <section class="queue-panel"><div class="panel-heading"><h2>接下来</h2><span>准备接瓜</span></div><div id="next-queue" class="next-queue"></div><p>当前形象在虚线上方，<br>再下一位就在这里。</p></section>
+        <section class="progress-panel"><div class="panel-heading"><h2>本局最高形象</h2><span id="highest-level">LV. 1</span></div><div class="highest-portrait" id="highest-portrait"></div><strong id="highest-name">闭眼小瓜</strong><div class="progress-track"><i id="level-progress"></i></div><p id="progress-text">再合 9 级，见到终极大逼瓜</p></section>
+        <div class="rule-note"><span>!</span><p>越过警戒虚线并持续堆积，<br>这一局就结束啦。</p></div>
+      </aside>
+      <section class="collection"><div class="collection-heading"><div><span class="eyebrow">从小表情，到大逼瓜</span><h2>合成图鉴 <span>10 个等级</span></h2></div><span class="collection-tip">两个一样的 → 下一等级</span></div><ol id="level-list" class="level-list"></ol></section>
+    </main>
+    <footer class="footer"><span>瓜不在大，合得开心。</span><span>← → 瞄准 · 空格投放 · P 暂停 · R 重开</span></footer>
+  </div>
+  <dialog id="help-dialog"><button class="dialog-close" aria-label="关闭玩法说明">×</button><span class="eyebrow">一分钟，上手合瓜</span><h2>让快乐碰个头。</h2><ol><li><strong>选个落点</strong><p>电脑移动鼠标瞄准，点击投放。手机在场内拖动，松手投放。</p></li><li><strong>同级相碰，就能升级</strong><p>两个一样的形象合成下一等级。等级越高，合成奖励越多。</p></li><li><strong>留意那条虚线</strong><p>落稳的形象越线持续 2 秒，游戏结束。刚落下的形象经过虚线不会立即判负。</p></li></ol><p class="help-extra">顶部展示当前形象；「接下来」显示后续三位。投放间隔约半秒。最高纪录自动保存在本机。终极大逼瓜可以继续留在场中。</p><button class="primary-button dialog-close">明白了，接着合 →</button></dialog>
+  <noscript>请开启 JavaScript 后游玩。</noscript>
+</body>
+</html>
