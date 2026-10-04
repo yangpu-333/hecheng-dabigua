@@ -6,16 +6,18 @@
   const { Engine, Bodies, Body, Composite, Events } = Matter;
   const WIDTH = 420, HEIGHT = 640, FLOOR = 620, DANGER_Y = 126, STEP = 1000 / 60;
   const LEVELS = [
-    { file: '10', name: '闭眼小瓜', radius: 19, color: '#dae8c6' },
-    { file: '05', name: '微笑小瓜', radius: 25, color: '#e9e8bf' },
-    { file: '04', name: '侧目小瓜', radius: 32, color: '#d8e5d9' },
-    { file: '06', name: '歪头瓜', radius: 39, color: '#e1dfee' },
-    { file: '03', name: '鼓腮瓜', radius: 47, color: '#efd5c1' },
-    { file: '02', name: '嘟嘴瓜', radius: 55, color: '#e6eeba' },
-    { file: '07', name: '快乐瓜', radius: 64, color: '#edccbd' },
-    { file: '08', name: '大厨瓜', radius: 74, color: '#d8e6c4' },
-    { file: '09', name: '太阳瓜', radius: 87, color: '#f5dda0' },
-    { file: '01', name: '终极大逼瓜', radius: 103, color: '#c8dfaf' }
+    { file: '10', name: '闭眼小瓜', radius: 24, color: '#dae8c6' },
+    { file: '05', name: '微笑小瓜', radius: 32, color: '#e9e8bf' },
+    { file: '04', name: '侧目小瓜', radius: 42, color: '#d8e5d9' },
+    { file: '06', name: '歪头瓜', radius: 54, color: '#e1dfee' },
+    { file: '03', name: '鼓腮瓜', radius: 66, color: '#efd5c1' },
+    { file: '02', name: '嘟嘴瓜', radius: 80, color: '#e6eeba' },
+    { file: '07', name: '快乐瓜', radius: 95, color: '#edccbd' },
+    { file: '08', name: '大厨瓜', radius: 120, color: '#d8e6c4' },
+    { file: '09', name: '太阳瓜', radius: 125, color: '#f5dda0' },
+    // The full-body portrait is narrow: extra height keeps its occupied area
+    // larger than the sunflower, while still fitting between the side walls.
+    { file: '01', name: '终极大逼瓜', radius: 195, color: '#c8dfaf' }
   ].map((level, index) => ({ ...level, size: level.radius * 2, shape: shapes[`character-${level.file}.png`], level: index, points: 2 ** (index + 1), image: `character-${level.file}.png` }));
 
   function createSilhouette(level, x, y, plugin) {
